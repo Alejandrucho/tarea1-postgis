@@ -1,0 +1,20 @@
+services:
+  db:
+    build: .                        
+    image: pmd-postgis-gdal
+    container_name: postgis_tarea1     
+    environment:
+      POSTGRES_PASSWORD: pmd2026
+    ports:
+      - "5434:5432"                 
+    volumes:
+      - pmd-tarea1-data:/var/lib/postgresql/data   
+      - ./datos:/datos                        
+    healthcheck:                    
+      test: ["CMD-SHELL", "pg_isready -U postgres -d postgres"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+
+volumes:
+  pmd-tarea1-data:
